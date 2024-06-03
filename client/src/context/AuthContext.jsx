@@ -2,6 +2,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
+const url = import.meta.env.VITE_APP_API_URL;
+
 
 const AuthContext = createContext();
 
@@ -20,7 +22,7 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/api/v1/user/users', {
+                const response = await axios.get(`${url}/users`, {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem("auth")}`,
                     },
@@ -37,7 +39,7 @@ const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
-            const response = await axios.post('http://localhost:4000/api/v1/user/login', { email, password });
+            const response = await axios.post(`${url}/login`, { email, password });
             setUser(response.data.user);
             localStorage.setItem('auth', response.data.data)
            
@@ -53,7 +55,7 @@ const AuthProvider = ({ children }) => {
 
 
         try {
-            const response = await axios.post('http://localhost:4000/api/v1/user/register', {
+            const response = await axios.post(`${url}/register`, {
                 username,
                 email,
                 password,

@@ -3,17 +3,21 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
+const url = import.meta.env.VITE_APP_API_URL;
+
 const LoginScreen = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  
+
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault(); 
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/v1/user/login",
+        `${url}/login`,
         {
           email,
           password,
